@@ -4,6 +4,7 @@ public class Calculator {
     private int num1;
     private int num2;
     private String operator;
+    private String c = "";
     private int result;
 
     // Constructor to initialize the calculator
@@ -17,43 +18,58 @@ public class Calculator {
         String i =scanCalc.nextLine();
         System.out.print("Input the second number: ");
         int num2 = scanCalc.nextInt();
+        scanCalc.nextLine();
 
         // Decide on the operation to perform
-        switch (i){
-            case "+":
-                add(num1, num2);
-                break;
-            case "-":
-                subtract(num1, num2);
-                break;
-            case "x":
-                multiply(num1, num2);
-                break;
-            case "/":
-                divide(num1, num2);
-                break;
-            default:
-                System.out.println("please enter a valid value");
+        for(int k = 1; k>0;){
+        try {
+            switch (i) {
+                case "+":
+                    add(num1, num2);
+                    break;
+                case "-":
+                    subtract(num1, num2);
+                    break;
+                case "x":
+                    multiply(num1, num2);
+                    break;
+                case "/":
+                    divide(num1, num2);
+                    break;
+                default:
+                    throw new CalculatorErrorOP();
+            }
+            k = -1;
+        }catch (CalculatorErrorOP e) {
+            System.out.println("\n-------------------------\nYour input is not valid\nplease enter a valid operator:\n(+, -, x, /)");
+            i =scanCalc.nextLine();
+            k = 1;
         }
+        }
+        System.out.println(c);
     }
 
     public String add(int a, int b) {
         result = a + b;
-        return result + "";
+        c = ""+a + " + " + b + " = " + result;
+        return c;
     }
 
     public String subtract(int a, int b) {
         result = a -b;
-        return result + "";
+        c = ""+a + " - " + b + " = " + result;
+        return c;
     }
 
     public String multiply(int a, int b) {
         result = a * b;
-        return result + "";
+        c = ""+a + " x " + b + " = " + result;
+        return c;
     }
 
     public String divide(int a, int b) {
         result = a / b;
-        return result + "";
+        c = ""+a + " / " + b + " = " + result;
+        return c;
     }
 }
